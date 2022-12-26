@@ -45,4 +45,37 @@ RSpec.describe 'Api::Internal::FeedbackSessionsControllers', type: :request do
       it { expect(response.status).to eq(401) }
     end
   end
+
+  describe 'POST /create' do
+    let(:provider) { create(:user) }
+    let(:session_date) { '2023-01-01' }
+    let(:params) { { provider_id: provider.id, session_date: session_date } }
+
+    def perform
+      post '/api/internal/feedback_sessions', params: { feedback_session: params }
+    end
+
+    it { expect(FeedbackSession.count).to eq(0) }
+
+    context 'with authorized user' do
+      let(:created_session) { JSON.parse(response.body)['feedback_session'] }
+
+      before do
+        sign_in(user)
+        perform
+      end
+
+      it { expect(response.status).to eq(201) }
+      it { expect(FeedbackSession.count).to eq(1) }
+      it { expect(created_session['id']).to eq(FeedbackSession.last.id) }
+      it { expect(created_session['receiver']['id']).to eq(user.id) }
+    end
+
+    context 'with unauthorized user' do
+      before { perform }
+
+      it { expect(response.status).to eq(401) }
+      it { expect(FeedbackSession.count).to eq(0) }
+    end
+  end
 end

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :internal do
-      resources :feedback_sessions, only: [:index]
+      resources :feedback_sessions, only: [:index, :create]
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
