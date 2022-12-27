@@ -1,6 +1,8 @@
 class FeedbackSession < ApplicationRecord
   belongs_to :provider, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
+  has_many :session_tags, dependent: :destroy
+  has_many :tags, through: :session_tags
 
   scope :for_user, ->(user) { where(provider: user).or(where(receiver: user)) }
 
