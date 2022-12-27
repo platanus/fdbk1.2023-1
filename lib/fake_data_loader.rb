@@ -32,7 +32,9 @@ module FakeDataLoader
   def self.load
     load_admin
     load_users
+    load_tags
     load_sessions
+    load_session_tags
   end
 
   def self.load_admin
@@ -55,6 +57,12 @@ module FakeDataLoader
     end
   end
 
+  def self.load_tags
+    10.times do
+      create(:tag, name: Faker::ProgrammingLanguage.unique.name)
+    end
+  end
+
   def self.load_sessions
     User.all.each do |user|
       rand(5..10).times do
@@ -63,6 +71,14 @@ module FakeDataLoader
           provider: user,
           receiver: User.where.not(id: user.id).sample
         )
+      end
+    end
+  end
+
+  def self.load_session_tags
+    FeedbackSession.all.each do |session|
+      rand(1..3).times do
+        create(:session_tag, feedback_session: session, tag: Tag.all.sample)
       end
     end
   end
