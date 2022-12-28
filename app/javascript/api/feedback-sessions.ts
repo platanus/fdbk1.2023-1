@@ -12,6 +12,10 @@ export interface FeedbackSession {
   updatedAt: string;
 }
 
+export type FeedbackSessionForm = Pick<FeedbackSession, 'sessionDate'> & {
+  providerId: number;
+};
+
 export default {
   index(type: string) {
     const path = `/api/internal/feedback_sessions?type=${type}`;
@@ -19,6 +23,18 @@ export default {
     return api<unknown, Merge<AxiosResponse, { data: { feedbackSessions: FeedbackSession[] }}>>({
       method: 'get',
       url: path,
+    });
+  },
+
+  create(feedbackSession: FeedbackSessionForm) {
+    const path = '/api/internal/feedback_sessions';
+
+    return api({
+      method: 'post',
+      url: path,
+      data: {
+        feedbackSession,
+      },
     });
   },
 };
