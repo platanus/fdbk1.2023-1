@@ -14,6 +14,8 @@ RSpec.describe FeedbackSession, type: :model do
 
     it { expect(feedback_session).to belong_to(:provider).class_name('User') }
     it { expect(feedback_session).to belong_to(:receiver).class_name('User') }
+    it { expect(feedback_session).to have_many(:session_tags).dependent(:destroy) }
+    it { expect(feedback_session).to have_many(:tags).through(:session_tags) }
   end
 
   describe 'Scopes' do
