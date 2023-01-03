@@ -48,8 +48,8 @@ RSpec.describe 'Api::Internal::FeedbackSessionsControllers', type: :request do
 
   describe 'POST /create' do
     let(:provider) { create(:user) }
-    let(:session_date) { '2023-01-01' }
-    let(:params) { { provider_id: provider.id, session_date: session_date } }
+    let(:tag) { create(:tag) }
+    let(:params) { { provider_id: provider.id, session_date: '2023-01-01', tags_ids: [tag.id] } }
 
     def perform
       post '/api/internal/feedback_sessions', params: { feedback_session: params }
@@ -69,6 +69,13 @@ RSpec.describe 'Api::Internal::FeedbackSessionsControllers', type: :request do
       it { expect(FeedbackSession.count).to eq(1) }
       it { expect(created_session['id']).to eq(FeedbackSession.last.id) }
       it { expect(created_session['receiver']['id']).to eq(user.id) }
+      it { expect(created_session['tags'].count).to eq(1) }
+
+      context 'without tags' do
+        let(:params) { { provider_id: provider.id, session_date: '2023-01-01', tags_ids: [] } }
+
+        it { expect(created_session['tags'].count).to eq(0) }
+      end
     end
 
     context 'with unauthorized user' do
