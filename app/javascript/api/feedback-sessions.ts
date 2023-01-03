@@ -14,8 +14,10 @@ export interface FeedbackSession {
   updatedAt: string;
 }
 
-export type FeedbackSessionForm = Pick<FeedbackSession, 'sessionDate'> & {
+export type FeedbackSessionForm = {
   providerId: number;
+  tagsIds: number[];
+  sessionDate?: string;
 };
 
 export default {

@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import type { User } from 'api/users';
+import type { Tag } from 'api/tags';
 import feedbackSessions, { type FeedbackSessionForm } from 'api/feedback-sessions';
 
 const props = defineProps<{
   users: User[];
+  tags: Tag[];
 }>();
 
 const form = reactive({
   providerId: props.users[0]?.id,
   sessionDate: '',
+  tagsIds: [],
 } as FeedbackSessionForm);
 
 async function submitForm() {
@@ -55,11 +58,21 @@ async function submitForm() {
         </option>
       </select>
     </label>
-    <base-input
-      v-model="form.sessionDate"
-      type="date"
-      label="Fecha"
-    />
+
+    <div class="flex justify-evenly gap-5">
+      <base-input
+        v-model="form.sessionDate"
+        type="date"
+        label="Fecha"
+        class="w-full"
+      />
+
+      <tag-select
+        v-model="form.tagsIds"
+        class="w-full"
+        :tags="tags"
+      />
+    </div>
     <base-button>
       Guardar
     </base-button>

@@ -7,5 +7,6 @@ class App::FeedbackSessionsController < App::BaseController
   def new
     @feedback_session = FeedbackSession.new
     @users = User.where.not(id: current_user.id)
+    @tags = Tag.all.select(:id, :name)
   end
 end
