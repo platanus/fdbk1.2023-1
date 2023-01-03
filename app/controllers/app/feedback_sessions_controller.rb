@@ -1,6 +1,7 @@
 class App::FeedbackSessionsController < App::BaseController
   def index
     @provider_sessions = current_user.providers.includes(:provider, :receiver)
+    @tags = Tag.all.select(:id, :name)
   end
 
   def new

@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import api, { type FeedbackSession } from 'api/feedback-sessions';
+import type { Tag } from 'api/tags';
+import giveTagsColor from 'composables/giveTagsColor';
 import FeedbackSessionItem from './feedback-sessions-item.vue';
 
 interface Props {
   initialSessions: FeedbackSession[],
   initialType: 'provider' | 'receiver',
+  tags: Tag[],
 }
 
 const props = defineProps<Props>();
@@ -21,6 +24,8 @@ const tabClasses = {
 
 const loading = ref(false);
 const error = ref(false);
+
+const tagsWithColor = giveTagsColor(props.tags);
 
 async function switchType(type: 'provider' | 'receiver') {
   try {
@@ -77,6 +82,7 @@ async function switchType(type: 'provider' | 'receiver') {
           v-for="session in sessions"
           :key="session.id"
           class="mb-3"
+          :tags="tagsWithColor"
           :type="currentType"
           :session="session"
         />

@@ -17,10 +17,10 @@ export default function giveTagsColor(tags : Tag[]) {
     return randomItem(colors);
   }
 
-  const tagsColor = computed(() => tags.map(tag => ({
+  const tagsWithColor = computed(() => tags.map(tag => ({
     ...tag,
     color: colors.length > 0 ? randomItem(colors) : resetColors(),
   })));
 
-  return tagsColor;
+  return tagsWithColor;
 }
