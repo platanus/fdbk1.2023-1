@@ -7,6 +7,7 @@ import BaseButton from './components/base-button.vue';
 import BaseCheckbox from './components/base-checkbox.vue';
 import BaseTitle from './components/base-title.vue';
 import BaseTag from './components/base-tag.vue';
+import TagSelect from './components/tag-select.vue';
 import UserSession from './components/user-session.vue';
 import FeedbackSessions from './components/feedback-sessions.vue';
 import FeedbackSessionsTitle from './components/feedback-sessions-title.vue';
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   app.component('BaseCheckbox', BaseCheckbox);
   app.component('BaseTitle', BaseTitle);
   app.component('BaseTag', BaseTag);
+  app.component('TagSelect', TagSelect);
   app.mount('#vue-app');
 
   return app;
