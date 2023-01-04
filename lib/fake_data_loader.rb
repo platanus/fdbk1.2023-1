@@ -35,6 +35,7 @@ module FakeDataLoader
     load_tags
     load_sessions
     load_session_tags
+    load_comments
   end
 
   def self.load_admin
@@ -55,6 +56,12 @@ module FakeDataLoader
 
       puts "user: #{user.email} - password: #{USER_PASSWORD}"
     end
+    create(
+      :user,
+      name: 'Ale',
+      email: 'ale@test.com',
+      password: '123123'
+    )
   end
 
   def self.load_tags
@@ -81,6 +88,18 @@ module FakeDataLoader
     FeedbackSession.all.each do |session|
       rand(1..3).times do
         create(:session_tag, feedback_session: session, tag: Tag.all.sample)
+      end
+    end
+  end
+
+  def self.load_comments
+    FeedbackSession.all.each do |feedback_session|
+      2.times do
+        create(
+          :comment,
+          feedback_session_id: feedback_session.id,
+          body: Faker::Lorem.sentence(word_count: 3)
+        )
       end
     end
   end
