@@ -58,8 +58,10 @@ module FakeDataLoader
   end
 
   def self.load_tags
-    10.times do
-      create(:tag, name: Faker::ProgrammingLanguage.unique.name)
+    tags = %w[Backend Frontend UX/UI Vue Rails Tailwind TypeScript
+              ActiveAdmin RSpec CircleCI Modelos]
+    tags.each do |tag_name|
+      create(:tag, name: tag_name)
     end
   end
 
