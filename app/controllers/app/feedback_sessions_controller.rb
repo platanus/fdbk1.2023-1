@@ -9,4 +9,14 @@ class App::FeedbackSessionsController < App::BaseController
     @users = User.where.not(id: current_user.id)
     @tags = Tag.all.select(:id, :name)
   end
+
+  def show
+    @comments = feedback_session.comments
+  end
+
+  private
+
+  def feedback_session
+    @feedback_session ||= FeedbackSession.find(params[:id])
+  end
 end

@@ -5,6 +5,7 @@ class FeedbackSession < ApplicationRecord
   has_many :tags, through: :session_tags
   has_many :comments, dependent: :destroy
 
+  scope :for_provider, ->(user) { where(provider: user) }
   scope :for_user, ->(user) { where(provider: user).or(where(receiver: user)) }
 
   validates :session_date, presence: true
