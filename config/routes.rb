@@ -11,9 +11,17 @@ Rails.application.routes.draw do
     resources :feedback_sessions, only: [:new]
   end
 
+  scope module: :app, defaults: { format: :html } do
+    resources :feedback_sessions, only: [:show, :new] do
+      resources :comments, only: [:new]
+    end
+  end
+
   namespace :api, defaults: { format: :json } do
     namespace :internal do
-      resources :feedback_sessions, only: [:index, :create]
+      resources :feedback_sessions, only: [:index, :create] do
+        resources :comments, only: [:create]
+      end
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

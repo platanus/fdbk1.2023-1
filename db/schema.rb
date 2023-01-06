@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 2022_12_27_140535) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.bigint "feedback_session_id", null: false
+    t.text "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feedback_session_id"], name: "index_comments_on_feedback_session_id"
+  end
+
   create_table "feedback_sessions", force: :cascade do |t|
     t.bigint "provider_id", null: false
     t.bigint "receiver_id", null: false
