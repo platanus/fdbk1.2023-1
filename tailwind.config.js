@@ -6,6 +6,14 @@ module.exports = {
         base: ['"Source Sans Pro"', 'sans-serif'],
         roboto: ['"Roboto"', 'sans-serif'],
       },
+      colors: {
+        'blue-gray': {
+          '50': '#f8fafc',
+          '200': '#E2E8F0',
+          '500': '#64748B',
+          '700': '#334155',
+        },
+      },
     },
   },
   variants: {},
