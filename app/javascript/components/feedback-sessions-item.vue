@@ -33,11 +33,14 @@ const sessionTags = computed(() => props.tags.filter(tag => props.session.tags.m
         :is-button="false"
       />
     </div>
-    <button class="ml-auto flex h-6 w-6 items-center justify-center rounded-full bg-slate-100">
+    <a
+      class="ml-auto flex h-6 w-6 items-center justify-center rounded-full bg-slate-100"
+      :href="`/feedback_sessions/${session.id}`"
+    >
       <inline-svg
         :src="require('images/icons/dots-vertical.svg')"
         class="h-4 w-4 fill-indigo-900"
       />
-    </button>
+    </a>
   </div>
 </template>
