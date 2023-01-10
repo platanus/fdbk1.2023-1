@@ -12,6 +12,8 @@ import UserSession from './components/user-session.vue';
 import FeedbackSessions from './components/feedback-sessions.vue';
 import FeedbackSessionsTitle from './components/feedback-sessions-title.vue';
 import FeedbackSessionsForm from './components/feedback-sessions-form.vue';
+import FeedbackSessionDetails from './components/feedback-session-details.vue';
+import CommentsForm from './components/comments-form.vue';
 import './css/application.css';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
       FeedbackSessions,
       FeedbackSessionsTitle,
       FeedbackSessionsForm,
+      FeedbackSessionDetails,
+      CommentsForm,
     },
   });
 
